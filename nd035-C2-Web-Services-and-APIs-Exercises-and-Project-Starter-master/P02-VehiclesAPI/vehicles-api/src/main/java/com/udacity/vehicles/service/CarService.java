@@ -38,9 +38,6 @@ public class CarService {
     WebClient webClientPricing;
 
   */
-
-
-
     public CarService(CarRepository repository,PriceClient priceClient ,MapsClient mapsClient ) {
         /**
          * TODO: Add the Maps and Pricing Web Clients you create
@@ -78,8 +75,6 @@ public class CarService {
          * TODO: Implemented.
          */
         Car car=this.repository.findById(id).orElseThrow(() -> new CarNotFoundException("car not found"));
-
-            
         // https://www.youtube.com/watch?v=F3uJyeAyv5g -for learning webclients concepts
         // https://howtodoinjava.com/spring-webflux/webclient-get-post-example/
 
@@ -123,6 +118,11 @@ public class CarService {
                     .map(carToBeUpdated -> {
                         carToBeUpdated.setDetails(car.getDetails());
                         carToBeUpdated.setLocation(car.getLocation());
+                        carToBeUpdated.setCondition(car.getCondition());
+                        carToBeUpdated.setCreatedAt(car.getCreatedAt());
+                        carToBeUpdated.setModifiedAt(car.getModifiedAt());
+                        carToBeUpdated.setPrice(car.getPrice());
+
                         return repository.save(carToBeUpdated);
                     }).orElseThrow(CarNotFoundException::new);
         }
